@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 SITE_ID = 1
+STATIC_URL = '/static'
+STATICFILES_DIRS = [
+    BASE_DIR/ 'change_forms_web_app'/'static'
+]
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
