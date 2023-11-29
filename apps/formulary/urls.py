@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import CreateFormulary, ListFormulary, UpdateFormulary, form_pdf
 
-
 app_name = "formulary"
 
 urlpatterns = [
