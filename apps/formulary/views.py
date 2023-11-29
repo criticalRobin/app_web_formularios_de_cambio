@@ -18,6 +18,8 @@ class ListFormulary(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         # filtrado de formularios por en los que el usuario es revisor
+        context["formularys"] = Formulary.objects.all()
+        print(context["formularys"])
         context["formulary_reviewer"] = Formulary.objects.filter(
             reviewer=self.request.user
         )
@@ -42,7 +44,8 @@ class ListFormulary(ListView):
             user_email=self.request.user.email,
             status="Rejected",
         )
-        return super().get_context_data(**kwargs)
+        
+        return context
 
 
 class CreateFormulary(CreateView):

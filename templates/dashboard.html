@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="es" >
 <head>
   <meta charset="UTF-8">
   <title>Bienvenido</title>
@@ -9,6 +9,13 @@
 
 </head>
 <body>
+  <h2>Formularios</h2>
+  <ul>
+      {% for formulary in formulary_reviewer %}
+          <li>{{ formulary.change }}</li>
+      {% endfor %}
+  </ul>
+
 <!-- partial:index.partial.html -->
 <div class="app-container">
   <div class="app-header">
