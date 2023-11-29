@@ -100,3 +100,7 @@ def form_pdf(request, pk):
     response = HttpResponse(result, content_type="application/pdf;")
     response["Content-Disposition"] = f"inline; filename=formulario_{form.pk}.pdf"
     return response
+
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
