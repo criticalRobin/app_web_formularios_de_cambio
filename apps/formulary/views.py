@@ -102,5 +102,3 @@ def form_pdf(request, pk):
     return response
 
 
-def dashboard(request):
-    return render(request, 'dashboard.html')
