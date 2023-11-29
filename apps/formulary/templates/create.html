@@ -1,45 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+
+      {% endblock %}
+    </title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
     <h1>Crear Formulario</h1>
 
     <div>
-        <form method="POST">
-            {% csrf_token %}
-            {% for field in form.visible_fields %}
-                <div>
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {% if field.name == 'project'%}
-                    <select name="{{ field.name }}" id="{{ field.id_for_label }}">
-                        {% for project in form.fields.project.queryset %}
-                            <option value="{{ project.id }}">{{ project.name }}</option>
-                        {% endfor %}
-                    </select>
-                    {% elif field.name == 'priority'%}
-                    <select name="{{ field.name }}" id="{{ field.id_for_label }}">
-                        <option value="Low">Baja</option>
-                        <option value="Medium">Media</option>
-                        <option value="High">Alta</option>
-                    </select>
-                    {%else %}
-                    <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" />
-                    {% endif %}
-                    {% if field.help_text %}
-                        <p>{{ field.help_text }}</p>
-                    {% endif %}
-                    {% for error in field.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
+      <form method="POST">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+          <div>
+            {% if field.name == 'project' %}
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <select class="form-select" aria-label="Default select example" name="{{ field.name }}" id="{{ field.id_for_label }}">
+                  <option value=""></option>
+                  {% for project in form.fields.project.queryset %}
+                    <option value="{{ project.id }}">{{ project.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% elif field.name == 'priority' %}
+              <div class="input-group mb-3" style="margin-top: 3%;">
+                <label class="input-group-text" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <select class="form-select" name="{{ field.name }}" id="{{ field.id_for_label }}">
+                  <option value=""></option>
+                  <option value="Low">Baja</option>
+                  <option value="Medium">Media</option>
+                  <option value="High">Alta</option>
+                </select>
+              </div>
+            {% elif field.name == 'reviewer' %}
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <select class="form-select" name="{{ field.name }}" id="{{ field.id_for_label }}">
+                  <option value=""></option>
+                  {% for reviewer in form.fields.reviewer.queryset %}
+                    <option value="{{ reviewer.id }}">{{ reviewer.username }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% else %}
+              <div class="row g-3 align-items-center" style="margin-top:1%;">
+                <div class="col-auto" >
+                  <label for="{{ field.id_for_label }}" class="col-form-label">{{ field.label }}</label>
                 </div>
+                <div class="col-auto">
+                  <input class="form-control " type="text" aria-label="default input example" name="{{ field.name }}" id="{{ field.id_for_label }}" style="width: 300%;"/>
+                </div>
+              </div>
+            {% endif %}
+            {% if field.help_text %}
+              <p>{{ field.help_text }}</p>
+            {% endif %}
+            {% for error in field.errors %}
+              <p>{{ error }}</p>
             {% endfor %}
-            <button type="submit">Guardar</button>
-        </form>
+          </div>
+        {% endfor %}
+        <button type="submit">Guardar</button>
+      </form>
     </div>
-</form>
-</body>
+  </body>
 </html>
