@@ -48,7 +48,6 @@
           font-size: 14px;
           line-height: 20px;
           letter-spacing: 0.3px;
-          margin: 20px 0;
       }
 
       .container span{
@@ -56,10 +55,10 @@
       }
 
       .container a{
-          color: #333;
+          color: #ffffff;
           font-size: 13px;
           text-decoration: none;
-          margin: 15px 0 10px;
+          margin: 5px 20px;
       }
 
       .container button{
@@ -115,48 +114,20 @@
           z-index: 2;
       }
 
-      .container.active .sign-in{
-          transform: translateX(100%);
-      }
-
-      .sign-up{
-          left: 0;
-          width: 50%;
-          opacity: 0;
-          z-index: 1;
-      }
-
-      .container.active .sign-up{
-          transform: translateX(100%);
-          opacity: 1;
-          z-index: 5;
-          animation: move 0.6s;
-      }
-
-      @keyframes move{
-          0%, 49.99%{
-              opacity: 0;
-              z-index: 1;
-          }
-          50%, 100%{
-              opacity: 1;
-              z-index: 5;
-          }
-      }
-
       .social-icons{
-          margin: 20px 0;
+          margin: 20px 0px;
       }
 
       .social-icons a{
           border: 1px solid #ccc;
-          border-radius: 20%;
+          border-radius: 10px;
           display: inline-flex;
           justify-content: center;
           align-items: center;
           margin: 0 3px;
-          width: 40px;
-          height: 40px;
+          width: auto;
+          padding: 5px 12px;
+          background-color: rgb(15,15,50);
       }
 
       .toggle-container{
@@ -209,18 +180,31 @@
         <form>
           <h1>Sign In</h1>
           <div class="social-icons">
-            <a href="#" class="icon">
-              <i class="fa-brands fa-google-plus-g"></i>
-            </a>
             <a href="{% provider_login_url 'github' %}" class="icon">
               <i class="fab fa-github"></i>
+              <b>GitHub</b>
             </a>
           </div>
           <span>or use your email password</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <a href="#">Forget Your Password?</a>
-          <button>Sign In</button>
+          <form method="post" action="{% url 'account_login' %}" class="entrance login">
+            {% csrf_token %}
+            
+            <div>
+              {{ form.as_p }}
+        
+              {# Campo oculto para la redirección #}
+              {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+              {% endif %}
+            </div>
+          <div class="actions">
+            <button type="submit" class="prominent login">
+                Sign In
+            </button>
+            
+        </form>
+          
+        </div>
         </form>
       </div>
       <div class="toggle-container">
