@@ -1,0 +1,46 @@
+{% load static %}
+{% load socialaccount%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <h1>HOME</h1>
+
+    {%if request.user.is_authenticated %}
+    <button><a href="{% url 'account_logout'%}">LOG OUT</a></button>
+    {% else %}
+    <button><a>BUTTON FOR LOG IN</a></button>
+    <div class= "social-icons">
+        <a href="{% provider_login_url 'github' %}" class="icon"><i class="fab fa-github"></i></a>
+    </div>
+    {% endif%}
+  </body>
+
+  <style>
+    .social-icons a{
+        border: 1px solid #ccc;
+        border-radius: 20%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 3px;
+        width: 40px;
+        height: 40px;
+    }
+    .fa-brands fa-github{
+        color: #333;
+        font-size: 13px;
+        text-decoration: none;
+        margin: 15px 0 10px;
+    }
+  </style>
+</html>
