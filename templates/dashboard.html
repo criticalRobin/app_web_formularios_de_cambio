@@ -9,12 +9,6 @@
 
 </head>
 <body>
-  <h2>Formularios</h2>
-  <ul>
-      {% for formulary in formulary_reviewer %}
-          <li>{{ formulary.change }}</li>
-      {% endfor %}
-  </ul>
 
 <!-- partial:index.partial.html -->
 <div class="app-container">
@@ -56,22 +50,26 @@
     </div>
     <div class="projects-section">
       <div class="projects-section-header">
-        <p>Projects</p>
+        <p>Formularios</p>
         <p class="time"></p>
       </div>
       <div class="projects-section-line">
         <div class="projects-status">
           <div class="item-status">
-            <span class="status-number">45</span>
-            <span class="status-type">In Progress</span>
+            <span class="status-number">{{num_approved}}</span>
+            <span class="status-type">Aprobados</span>
           </div>
           <div class="item-status">
-            <span class="status-number">24</span>
-            <span class="status-type">Upcoming</span>
+            <span class="status-number">{{ num_pending_me }}</span>
+            <span class="status-type">Mis pendientes</span>
           </div>
           <div class="item-status">
-            <span class="status-number">62</span>
-            <span class="status-type">Total Projects</span>
+            <span class="status-number">{{ num_rejected }}</span>
+            <span class="status-type">Rechazados</span>
+          </div>
+          <div class="item-status">
+            <span class="status-number">{{ num_pending }}</span>
+            <span class="status-type">Por revisar</span>
           </div>
         </div>
         <div class="view-actions">
