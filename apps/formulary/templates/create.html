@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+
+      {% endblock %}
+    </title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+    <div class="container mt-5  border rounded shadow mx-auto" style="margin-bottom: 5%; width: 60%; background: rgba(211, 204, 227, 0.7);">
+      <div class="" style="margin: 5%;">
+        <h1>Crear Formulario</h1>
+        <form method="POST">
+          {% csrf_token %}
+          {% for field in form.visible_fields %}
+            <div>
+              {% if field.name == 'project' %}
+                <div class="input-group mb-3" style="width: 40%;">
+                  <label class="input-group-text" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  <select class="form-select" aria-label="Default select example" name="{{ field.name }}" id="{{ field.id_for_label }} ">
+                    <option value=""></option>
+                    {% for project in form.fields.project.queryset %}
+                      <option value="{{ project.id }}">{{ project.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% elif field.name == 'priority' %}
+                <div class="input-group mb-3" style="margin-top: 3%; width: 30%;">
+                  <label class="input-group-text" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  <select class="form-select" name="{{ field.name }}" id="{{ field.id_for_label }}">
+                    <option value=""></option>
+                    <option value="Low">Baja</option>
+                    <option value="Medium">Media</option>
+                    <option value="High">Alta</option>
+                  </select>
+                </div>
+              {% elif field.name == 'reviewer' %}
+                <div class="input-group mb-3" style="width: 30%;">
+                  <label class="input-group-text" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  <select class="form-select" name="{{ field.name }}" id="{{ field.id_for_label }}">
+                    <option value=""></option>
+                    {% for reviewer in form.fields.reviewer.queryset %}
+                      <option value="{{ reviewer.id }}">{{ reviewer.username }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% elif field.name == 'change' %}
+                <div class="row g-3 align-items-center" style="margin-top:1%; width: 100%;">
+                  <div class="col-auto">
+                    <label for="{{ field.id_for_label }}" class="col-form-label">{{ field.label }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <input class="form-control" type="text" aria-label="default input example" name="{{ field.name }}" id="{{ field.id_for_label }}" style="width: 300%;" />
+                  </div>
+                </div>
+              {% else %}
+                <div class="row g-3 align-items-center" style="margin-top:1%;">
+                  <div class="col-auto">
+                    <label for="{{ field.id_for_label }}" class="col-form-label">{{ field.label }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <textarea class="form-control" name="{{ field.name }}" id="{{ field.id_for_label }}" style="width: 300%;" rows="3"></textarea>
+                  </div>
+                </div>
+              {% endif %}
+              {% if field.help_text %}
+                <p>{{ field.help_text }}</p>
+              {% endif %}
+              {% for error in field.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endfor %}
+          <button class="btn btn-secondary btn-lg" type="submit">Guardar</button>
+        </form>
+      </div>
+       
+    </div>
+  </body>
+  
+</html>

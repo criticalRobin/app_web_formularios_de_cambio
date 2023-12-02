@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.shortcuts import render
+from django.shortcuts import render
 from django.urls import path, include
 
 def login(request):
@@ -24,7 +25,8 @@ def profile(request):
     return render(request,'home.html')
 urlpatterns = [
     path('',login),
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path('accounts/',include('allauth.urls')),
-    path('accounts/profile/',profile)
+    path('accounts/profile/',profile),
+    path("", include("apps.formulary.urls")),
 ]
