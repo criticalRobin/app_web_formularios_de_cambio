@@ -51,11 +51,18 @@
     </div>  
 
     <div class="p2-c"> <h3>  {{form.change_justification}} </h3>  </div>  <br>
-   
-    <div class="camposSolicitud">
-        <div class="p1"><h3>Estado: </h3> </div>
-        <div class="p2"> <h3>  {{form.status}}   </h3>  </div>
-    </div>    <br>
+
+<div class="camposSolicitud">
+    <div class="p1"><h3>Estado:</h3></div>
+    <div class="p2-a">
+        <div class="estado-indicadores">
+            <span class="{% if form.status == 'Approved' %}aprobado activo{% else %}aprobado{% endif %}">Aprobado</span>
+            <span class="{% if form.status == 'Pending' %}pendiente activo{% else %}pendiente{% endif %}">Pendiente</span>
+            <span class="{% if form.status == 'Rejected' %}rechazado activo{% else %}rechazado{% endif %}">Rechazado</span>
+        </div>
+    </div>
+</div>
+<br>
 
     <div class="camposSolicitud">
         <div class="p1"><h3>Revisor: </h3> </div>
@@ -138,6 +145,12 @@
             border-radius: 5px; 
         }
         
+        .p2-a {
+            flex: 1; 
+            padding: 5px; 
+            border-radius: 5px; 
+        }
+    
         .p2-c {
             flex: 1; 
             background-color: hsl(0, 0%, 91%);
@@ -147,7 +160,38 @@
             text-align: justify;
         }
         
+        .estado-indicadores {
+            display: flex;
+        }
+        
+        .estado-indicadores span {
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .aprobado {
+            color: green;
+        }
+        
+        .pendiente {
+            color: orange;
+        }
+        
+        .rechazado {
+            color: red;
+        }
+        
+        .activo {
+            background-color: #ccc; /* Puedes cambiar el color de fondo activo según tus preferencias */
+        }
+        
+  
 
     </style>
 </body>
 </html>
+
+
