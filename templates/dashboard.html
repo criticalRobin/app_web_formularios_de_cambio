@@ -56,11 +56,11 @@
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
           <polyline points="9 22 9 12 15 12 15 22" /></svg>
       </a>
-      <a href="" class="app-sidebar-link">
-        <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-pie-chart" viewBox="0 0 24 24">
-          <defs />
-          <path d="M21.21 15.89A10 10 0 118 2.83M22 12A10 10 0 0012 2v10z" />
-        </svg>
+      <a href="{% url "formulary:create_project" %}" class="app-sidebar-link">
+        <i class="fa-solid fa-folder"></i>
+      </a>
+      <a href="{% url "formulary:form_create" %}" class="app-sidebar-link">
+        <i class="fa-solid fa-list fa-fw"></i>
       </a>
     </div>
     <div class="projects-section">
@@ -112,12 +112,7 @@
             <div class="project-box-header">
               
               <div class="more-wrapper">
-                <button class="project-btn-more">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="12" cy="5" r="1" />
-                    <circle cx="12" cy="19" r="1" /></svg>
-                </button>
+                
           </div>
         </div>
         <div class="project-box-content-header">
@@ -125,7 +120,10 @@
           {% for form in formulary_approved %}
           <p class="box-content-subheader">
           <i class="fas fa-check"></i> Proyecto: {{ form.project.name }} - Formulario: {{ form }}
+          <a href="{% url "formulary:form_pdf" form.pk %}" target="_blank"><i class="fas fa-file-pdf"></i></a>
           </p>
+          
+          
           {% endfor %}
 
         </div>
@@ -143,12 +141,7 @@
         <div class="project-box-header">
          
           <div class="more-wrapper">
-            <button class="project-btn-more">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                <circle cx="12" cy="12" r="1" />
-                <circle cx="12" cy="5" r="1" />
-                <circle cx="12" cy="19" r="1" /></svg>
-            </button>
+            
           </div>
         </div>
         <div class="project-box-content-header">
@@ -156,7 +149,9 @@
           {% for form in formulary_rejected %}
           <p class="box-content-subheader">
           <i class="fas fa-times"></i> Proyecto: {{ form.project.name }} - Formulario: {{ form }}
+          <a href="{% url "formulary:form_pdf" form.pk %}" target="_blank"><i class="fas fa-file-pdf"></i></a>
           </p>
+
           {% endfor %}
         </div>
         <div class="box-progress-wrapper">
@@ -173,20 +168,17 @@
         <div class="project-box-header">
           
           <div class="more-wrapper">
-            <button class="project-btn-more">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                <circle cx="12" cy="12" r="1" />
-                <circle cx="12" cy="5" r="1" />
-                <circle cx="12" cy="19" r="1" /></svg>
-            </button>
+            
           </div>
         </div>
         <div class="project-box-content-header">
           <p class="box-content-header">Pendientes por revisar</p>
           {% for form in formulary_pending %}
-          <p class="box-content-subheader">
+          <a class="box-content-subheader" href="{% url "formulary:form_update" form.pk %}">
           <i class="fas fa-clock"></i> Proyecto: {{ form.project.name }} - Formulario: {{ form }}
-          </p>
+          </a>
+          <a href="{% url "formulary:form_pdf" form.pk %}" target="_blank"><i class="fas fa-file-pdf"></i></a>
+          
           {% endfor %}
         </div>
         <div class="box-progress-wrapper">
@@ -198,33 +190,7 @@
         </div>
       </div>
     </div>
-    <div class="project-box-wrapper">
-      <div class="project-box" style="background-color: #ffd3e2;">
-        <div class="project-box-header">
-          
-          <div class="more-wrapper">
-            <button class="project-btn-more">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                <circle cx="12" cy="12" r="1" />
-                <circle cx="12" cy="5" r="1" />
-                <circle cx="12" cy="19" r="1" /></svg>
-            </button>
-          </div>
-        </div>
-        <div class="project-box-content-header">
-          <p class="box-content-header">UI Development</p>
-          <p class="box-content-subheader">Prototyping</p>
-        </div>
-        <div class="box-progress-wrapper">
-          <p class="box-progress-header">Progress</p>
-          <div class="box-progress-bar">
-            <span class="box-progress" style="width: 20%; background-color: #df3670"></span>
-          </div>
-          <p class="box-progress-percentage">20%</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    
 </div>
 
 </div>
