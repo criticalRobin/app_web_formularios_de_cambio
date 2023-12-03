@@ -16,10 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.shortcuts import render
-from django.urls import path, include  # new
+from django.shortcuts import render
+from django.urls import path, include
 
-
+def login(request):
+    return render(request,'login.html')
+def profile(request):
+    return render(request,'home.html')
 urlpatterns = [
+    path('',login),
     path("admin/", admin.site.urls),
-    path("", include("apps.formulary.urls")),  # new
+    path('accounts/',include('allauth.urls')),
+    path('accounts/profile/',profile),
+    path("", include("apps.formulary.urls")),
 ]
