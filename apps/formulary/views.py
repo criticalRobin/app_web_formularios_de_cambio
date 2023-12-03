@@ -52,7 +52,7 @@ class CreateFormulary(CreateView):
     model = Formulary
     template_name = "create.html"
     form_class = CreateFormularyForm
-    success_url = reverse_lazy("formulary:form_list")
+    success_url = reverse_lazy("formulary:dashboard")
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -75,7 +75,7 @@ class UpdateFormulary(UpdateView):
     model = Formulary
     template_name = "update.html"
     form_class = UpdateFormularyForm
-    success_url = reverse_lazy("dashboard.html")
+    success_url = reverse_lazy("formulary:dashboard")
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, instance=self.get_object())
@@ -109,7 +109,7 @@ class CreateProject(CreateView):
     model = Formulary
     template_name = "project.html"
     form_class = CreateProject
-    success_url = reverse_lazy("dashboard.html")
+    success_url = reverse_lazy("formulary:dashboard")
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)

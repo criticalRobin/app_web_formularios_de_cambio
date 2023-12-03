@@ -19,14 +19,19 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.urls import path, include
 
+
 def login(request):
-    return render(request,'login.html')
+    return render(request, "login.html")
+
+
 def profile(request):
-    return render(request,'home.html')
+    return render(request, "home.html")
+
+
 urlpatterns = [
-    path('',login),
+    path("", login),
     path("admin/", admin.site.urls),
-    path('accounts/',include('allauth.urls')),
-    path('accounts/profile/',profile),
+    path("accounts/", include("allauth.urls")),
+    path("accounts/profile/", profile),
     path("", include("apps.formulary.urls")),
 ]
