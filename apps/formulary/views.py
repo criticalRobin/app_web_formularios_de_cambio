@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Formulary
-from .forms import CreateFormularyForm, UpdateFormularyForm
+from .forms import CreateFormularyForm, UpdateFormularyForm, CreateProject
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.template.loader import render_to_string
@@ -44,7 +44,7 @@ class ListFormulary(ListView):
             user_email=self.request.user.email,
             status="Rejected",
         )
-        
+
         return context
 
 
@@ -105,3 +105,19 @@ def form_pdf(request, pk):
     return response
 
 
+class CreateProject(CreateView):
+    model = Formulary
+    template_name = "project.html"
+    form_class = CreateProject
+    success_url = reverse_lazy("dashboard.html")
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(self.success_url)
+        self.object = None
+        context = self.get_context_data(**kwargs)
+        context["form"] = form
+        return render(request, self.template_name, context)
