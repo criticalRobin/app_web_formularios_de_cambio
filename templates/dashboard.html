@@ -27,10 +27,22 @@
           <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
         </svg>
       </button>
-      <button class="profile-btn">
-        <img src="https://assets.codepen.io/3306515/IMG_2025.jpg" />
-        <span>Usuario</span>
-      </button>
+      {% if request.user.is_authenticated %}
+        <form method="post" action="{% url 'account_logout' %}">
+          {% csrf_token %} {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+
+          <div class="actions">
+            <button type="submit">Sign Out</button>
+          </div>
+        </form>
+      {% else %}
+        <button><a>BUTTON FOR LOG IN</a></button>
+        <div class="social-icons">
+          <a href="{% provider_login_url 'github' %}" class="icon"><i class="fab fa-github"></i></a>
+        </div>
+      {% endif %}
     </div>
     <button class="messages-btn">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle">
