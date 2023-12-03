@@ -1,5 +1,5 @@
 from django import forms
-from .models import Formulary
+from .models import Formulary, Project
 
 
 class CreateFormularyForm(forms.ModelForm):
@@ -33,4 +33,17 @@ class UpdateFormularyForm(forms.ModelForm):
         labels = {
             "status": "Estado",
             "comment": "Comentario",
+        }
+
+
+class CreateProject(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = [
+            "name",
+            "description",
+        ]
+        labels = {
+            "name": "Nombre",
+            "description": "Descripción",
         }

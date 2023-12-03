@@ -28,31 +28,32 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = "formulary:dashboard"
+
 SITE_ID = 1
-STATIC_URL = '/static'
-STATICFILES_DIRS = [
-    BASE_DIR/ 'change_forms_web_app'/'static'
-]
+STATIC_URL = "/static"
+STATICFILES_DIRS = [BASE_DIR / "change_forms_web_app" / "static"]
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # Application definition
 
 INSTALLED_APPS = [
-        "django.contrib.admin",
+    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "bootstrap5",
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
+    "apps.formulary",
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'allauth.account.middleware.AccountMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "change_forms_web_app.urls"
@@ -71,7 +72,7 @@ ROOT_URLCONF = "change_forms_web_app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -79,17 +80,17 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                'django.template.context_processors.request',
+                "django.template.context_processors.request",
             ],
         },
     },
 ]
 SOCIALACCOUNT_PROVIDERS = {
-    'github':{
-        'APP':{
-            'client_id':'37e4635ced138480cc69',
-            'secret':'143e76d0ee577c0797e26b82b15509530b544f33',
-            'key':''
+    "github": {
+        "APP": {
+            "client_id": "37e4635ced138480cc69",
+            "secret": "143e76d0ee577c0797e26b82b15509530b544f33",
+            "key": "",
         }
     }
 }
