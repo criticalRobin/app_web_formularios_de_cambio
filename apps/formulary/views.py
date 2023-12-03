@@ -11,42 +11,54 @@ from weasyprint import HTML
 # Create your views here.
 class ListFormulary(ListView):
     model = Formulary
-    template_name = (
-        "dashboard.html"  # nombrar el template de dashboard como dashboard.html
-    )
+    template_name = "dashboard.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        # filtrado de formularios por en los que el usuario es revisor
-        context["formularys"] = Formulary.objects.all()
-        print(context["formularys"])
-        context["formulary_reviewer"] = Formulary.objects.filter(
-            reviewer=self.request.user
-        )
-        # filtrado de formularios por en los que el usuario es creador
-        context["formulary_pending"] = Formulary.objects.filter(
+
+        # Filtrado de formularios por en los que el usuario es revisor
+        #pendientes de revisar yo
+        formulary_reviewer = Formulary.objects.filter(reviewer=self.request.user, status="Pending")
+        context["formulary_reviewer"] = formulary_reviewer
+
+        # Filtrado de formularios por en los que el usuario es creador
+        # pendientes a que me revisen 
+        formulary_pending = Formulary.objects.filter(
             user_name=self.request.user.first_name,
             user_surname=self.request.user.last_name,
             user_email=self.request.user.email,
             status="Pending",
         )
-        # filtrado de formularios del usuario que han sido aprobados
-        context["formulary_approved"] = Formulary.objects.filter(
+        context["formulary_pending"] = formulary_pending
+
+        # Filtrado de formularios del usuario que han sido aprobados
+        # aprobados
+        formulary_approved = Formulary.objects.filter(
             user_name=self.request.user.first_name,
             user_surname=self.request.user.last_name,
             user_email=self.request.user.email,
             status="Approved",
         )
+        context["formulary_approved"] = formulary_approved
 
-        context["formulary_rejected"] = Formulary.objects.filter(
+        # Filtrado de formularios del usuario que han sido rechazados
+        # rechazados
+        formulary_rejected = Formulary.objects.filter(
             user_name=self.request.user.first_name,
             user_surname=self.request.user.last_name,
             user_email=self.request.user.email,
             status="Rejected",
         )
+        context["formulary_rejected"] = formulary_rejected
+
+        # Número de formularios aprobados, pendientes y rechazados
+        context["num_pending_me"] = formulary_reviewer.count
+        context["num_pending"] = formulary_pending.count
+        context["num_approved"] = formulary_approved.count
+        context["num_rejected"] = formulary_rejected.count
+        
 
         return context
-
 
 class CreateFormulary(CreateView):
     model = Formulary
