@@ -6,41 +6,68 @@
     <title>PDF</title>
 </head>
 <body>
-    <h1>Formulario</h1>
+    <header> Formulario </header>
+
 <div class="tituloProyecto">   
-   <h3> {{form.project}} </h3>
-</div>
+   <h1> {{form.project}} </h1>
+</div> <br>
 
-    
     <div class="contenedor">
-    <h2>Solicitante</h2>
+    <h2>Solicitante</h2> </div> <br>
 
-
-    </div>
-
-    <br>
-
-
-    <div class="xd">
-        <h3>Nombre: {{form.user_name}} </h3>
-        <h3>Apellido: {{form.user_surname}}</h3>
-        <h3>Correo: {{form.user_email}}</h3>
-
-    </div>    
+    <div class="camposSolicitud">
+        <div class="p1"><h3>Nombre: </h3> </div>
+        <div class="p2"> <h3>  {{form.user_name}}  </h3>  </div>
+    </div>    <br>
+    
+    <div class="camposSolicitud">
+        <div class="p1"><h3>Apellido: </h3> </div>
+        <div class="p2"> <h3> {{form.user_surname}}  </h3>  </div>
+    </div>   <br>  
+    
+    <div class="camposSolicitud">
+        <div class="p1-c"><h3>Correo:     </h3> </div>
+        <div class="p2"> <h3>  {{form.user_email}}  </h3>  </div>
+    </div>  <br>
 
     <div class="contenedor">
     <h2>Cambio</h2>
     </div>
     <br>
 
-    <div class="xd">
-        <h3>Cambio: {{form.change}}</h3>
-        <h3>Descripcion: {{form.change_description}}</h3>
-        <h3> Justificación: {{form.change_justification}}</h3>
-        <h3>Estado: {{form.status}} </h3>
-        <h3>Revisor: {{form.reviewer}}</h3>
-        
-    </div>   
+    <div class="camposSolicitud">
+        <div class="p1"><h3>Cambio: </h3> </div>
+        <div class="p2"> <h3>  {{form.change}}  </h3>  </div>
+    </div>    <br>
+    
+    <div class="camposSolicitud">
+        <div class="p1"><h3>Descripción: </h3> </div>
+    </div>  
+    <div class="p2-c"> <h3> {{form.change_description}} </h3>  </div>
+    <br>  
+    
+    <div class="camposSolicitud">
+        <div class="p1"><h3>Justificación:   </h3> </div>
+    </div>  
+
+    <div class="p2-c"> <h3>  {{form.change_justification}} </h3>  </div>  <br>
+
+<div class="camposSolicitud">
+    <div class="p1"><h3>Estado:</h3></div>
+    <div class="p2-a">
+        <div class="estado-indicadores">
+            <span class="{% if form.status == 'Approved' %}aprobado activo{% else %}aprobado{% endif %}">Aprobado</span>
+            <span class="{% if form.status == 'Pending' %}pendiente activo{% else %}pendiente{% endif %}">Pendiente</span>
+            <span class="{% if form.status == 'Rejected' %}rechazado activo{% else %}rechazado{% endif %}">Rechazado</span>
+        </div>
+    </div>
+</div>
+<br>
+
+    <div class="camposSolicitud">
+        <div class="p1"><h3>Revisor: </h3> </div>
+        <div class="p2"> <h3>  {{form.reviewer}} </h3>  </div>
+    </div>    <br>
 
     <style>
         @page {
@@ -48,40 +75,123 @@
             margin: 1cm 1.5cm 3.5cm 1.5cm;
           }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-            background-color: #fff;
-            padding: 20px;
-            
+          header {
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+
         h1 {
             text-align: center;
-            font-size: 50px;
+            font-size: 20px;
+            font-weight: bold;
             color: hsl(0, 0%, 0%);
         }
+
         h2 {
             text-align: left;
             font-size: 20px;
-            color: hsl(0, 0%, 100%);
+            color: black;
+        }
+
+        h3{
+            font-weight:normal;
+            font-size: 15px;
         }
 
         .contenedor {
-            background-color: hsl(257, 57%, 42%);
+            background-color: hsl(45, 100%, 82%) ;
             border-radius: 10px; 
-            padding: 15px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            padding-left: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
           }
 
-          .xd {
+          .columnaTitulos1 {
             color: black;
           }
 
         .tituloProyecto{
-            width: 10%;
-            margin:auto;
-            padding: 20px; 
+            margin: auto;
+            text-align: center;
+            background-color: hsl(0, 0%, 91%);
+            border: 2px solid #8f8f8f; 
           }
+
+        .camposSolicitud {
+            display: flex;
+            align-items: center; 
+        }
+        
+        .p1 {
+            margin-right: 10px;
+        }
+
+        .p1-c{
+            margin-right: 20px; 
+        }
+        
+        .p2 {
+            flex: 1; 
+            background-color: hsl(0, 0%, 91%);
+            border: 2px solid #8f8f8f;
+            padding: 5px; 
+            border-radius: 5px; 
+        }
+        
+        .p2-a {
+            flex: 1; 
+            padding: 5px; 
+            border-radius: 5px; 
+        }
+    
+        .p2-c {
+            flex: 1; 
+            background-color: hsl(0, 0%, 91%);
+            border: 2px solid #8f8f8f;
+            padding: 5px; 
+            border-radius: 5px; 
+            text-align: justify;
+        }
+        
+        .estado-indicadores {
+            display: flex;
+        }
+        
+        .estado-indicadores span {
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .aprobado {
+            color: green;
+        }
+        
+        .pendiente {
+            color: orange;
+        }
+        
+        .rechazado {
+            color: red;
+        }
+        
+        .activo {
+            background-color: #ccc; /* Puedes cambiar el color de fondo activo según tus preferencias */
+        }
+        
+  
+
     </style>
 </body>
 </html>
+
+
