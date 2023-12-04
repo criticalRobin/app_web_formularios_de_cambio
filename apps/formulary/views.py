@@ -24,9 +24,7 @@ class ListFormulary(ListView):
         # Filtrado de formularios por en los que el usuario es creador
         # pendientes a que me revisen 
         formulary_pending = Formulary.objects.filter(
-            user_name=self.request.user.first_name,
-            user_surname=self.request.user.last_name,
-            user_email=self.request.user.email,
+            reviewer= self.request.user.id,
             status="Pending",
         )
         context["formulary_pending"] = formulary_pending
