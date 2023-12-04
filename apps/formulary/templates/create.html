@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear Formulario</title>
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  <style>
+    body {
+      background-color: #34264f; /* Fondo oscuro para el cuerpo de la página */
+    }
+    .card {
+      background: #FFFFFF; /* Fondo blanco para el formulario */
+      border-radius: 1rem; /* Bordes redondeados para la tarjeta */
+      border: none; /* Sin bordes para la tarjeta */
+      color: #333; /* Texto oscuro para contraste */
+    }
+    .card-body {
+      padding: 2rem; /* Espaciado interno para el cuerpo de la tarjeta */
+    }
+    .form-label {
+      color: #6c63ff; /* Color del texto para las etiquetas del formulario */
+      margin-bottom: 0.5rem; /* Espaciado debajo de las etiquetas del formulario */
+    }
+    .form-control, .form-select {
+      background-color: #E9ECEF; /* Fondo claro para los campos de formulario */
+      border: 1px solid #ced4da; /* Borde para los campos */
+      color: #495057; /* Texto oscuro para los campos de formulario */
+    }
+    .btn-primary {
+      background-color: #6c63ff; /* Color del botón que coincide con el diseño */
+      border: none; /* Sin bordes para el botón */
+      padding: 0.75rem 0; /* Relleno para el botón */
+      margin-top: 1rem; /* Espacio superior para el botón */
+      transition: background-color 0.3s; /* Transición suave para el color de fondo */
+    }
+    .btn-primary:hover {
+      background-color: #5848c2; /* Color del botón al pasar el mouse */
+    }
+    .form-text {
+      color: #6c757d; /* Texto de ayuda más claro para mayor visibilidad */
+    }
+    .invalid-feedback {
+      background-color: #e63946; /* Fondo para los mensajes de error */
+      padding: 0.5rem; /* Espaciado interno para los mensajes de error */
+      margin-top: 0.5rem; /* Espaciado superior para los mensajes de error */
+      color: #fff; /* Texto blanco para los mensajes de error */
+    }
+  </style>
+  {% bootstrap_javascript %}
+</head>
+<body>
+  <div class="container my-5">
+    <div class="card mx-auto" style="max-width: 500px;">
+      <div class="card-body">
+        <h1 class="card-title text-center">Crear Formulario</h1>
+        <form method="POST">
+          {% csrf_token %}
+          {% for field in form.visible_fields %}
+          <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {% if field.field.widget.input_type == 'select' %}
+              <select class="form-select" name="{{ field.name }}" id="{{ field.id_for_label }}">
+                <option value="" {% if not field.value %}selected{% endif %}>{{ field.field.empty_label|default:"---------" }}</option>
+                {% for key, value in field.field.choices %}
+                  {% if key %}
+                    <option value="{{ key }}" {% if field.value == key %}selected{% endif %}>{{ value }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            {% elif field.field.widget.input_type == 'textarea' %}
+              <textarea class="form-control" name="{{ field.name }}" id="{{ field.id_for_label }}" rows="3">{{ field.value|default_if_none:"" }}</textarea>
+            {% else %}
+              <input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:"" }}"/>
+            {% endif %}
+            {% for error in field.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+          <button class="btn btn-primary w-100" type="submit">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
