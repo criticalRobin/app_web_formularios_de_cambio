@@ -1,5 +1,6 @@
 from django import forms
 from .models import Formulary, Project
+from django.contrib.auth.models import User
 
 
 class CreateFormularyForm(forms.ModelForm):
@@ -24,6 +25,13 @@ class CreateFormularyForm(forms.ModelForm):
 
 
 class UpdateFormularyForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["status"].choices = [
+            ("Approved", "Aprobado"),
+            ("Rejected", "Rechazado"),
+        ]
+
     class Meta:
         model = Formulary
         fields = [
