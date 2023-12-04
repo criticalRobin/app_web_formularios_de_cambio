@@ -117,22 +117,27 @@
         </div>
         <div class="project-box-content-header">
           <p class="box-content-header">Formularios Aprobados</p>
+          <div class="box-progress-wrapper">
+        
+            <div class="box-progress-bar">
+              <span class="box-progress" style="width: 100%; background-color: #ff942e"></span>
+            </div>
+            
+          </div>
           {% for form in formulary_approved %}
           <p class="box-content-subheader">
           <i class="fas fa-check"></i> Proyecto: {{ form.project.name }} - Formulario: {{ form }}
           <a href="{% url "formulary:form_pdf" form.pk %}" target="_blank"><i class="fas fa-file-pdf"></i></a>
           </p>
-          
-          
           {% endfor %}
 
         </div>
         <div class="box-progress-wrapper">
-          <p class="box-progress-header">Progress</p>
+        
           <div class="box-progress-bar">
-            <span class="box-progress" style="width: 60%; background-color: #ff942e"></span>
+            <span class="box-progress" style="width: 100%; background-color: #ff942e"></span>
           </div>
-          <p class="box-progress-percentage">60%</p>
+          
         </div>
       </div>
     </div>
@@ -146,6 +151,13 @@
         </div>
         <div class="project-box-content-header">
           <p class="box-content-header">Formularios Rechazados</p>
+          <div class="box-progress-wrapper">
+          
+            <div class="box-progress-bar">
+              <span class="box-progress" style="width: 100%; background-color: #4f3ff0"></span>
+            </div>
+           
+          </div>
           {% for form in formulary_rejected %}
           <p class="box-content-subheader">
           <i class="fas fa-times"></i> Proyecto: {{ form.project.name }} - Formulario: {{ form }}
@@ -155,11 +167,11 @@
           {% endfor %}
         </div>
         <div class="box-progress-wrapper">
-          <p class="box-progress-header">Progress</p>
+          
           <div class="box-progress-bar">
-            <span class="box-progress" style="width: 50%; background-color: #4f3ff0"></span>
+            <span class="box-progress" style="width: 100%; background-color: #4f3ff0"></span>
           </div>
-          <p class="box-progress-percentage">50%</p>
+         
         </div>
       </div>
     </div>
@@ -173,6 +185,11 @@
         </div>
         <div class="project-box-content-header">
           <p class="box-content-header">Pendientes por revisar</p>
+          <div class="box-progress-wrapper">
+            <div class="box-progress-bar">
+              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+            </div>
+          </div>
           {% for form in formulary_pending %}
           <a class="box-content-subheader" href="{% url "formulary:form_update" form.pk %}">
           <i class="fas fa-clock"></i> Proyecto: {{ form.project.name }} - Formulario: {{ form }}
@@ -182,11 +199,9 @@
           {% endfor %}
         </div>
         <div class="box-progress-wrapper">
-          <p class="box-progress-header">Progress</p>
           <div class="box-progress-bar">
-            <span class="box-progress" style="width: 80%; background-color: #096c86"></span>
+            <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
           </div>
-          <p class="box-progress-percentage">80%</p>
         </div>
       </div>
     </div>
